@@ -110,4 +110,83 @@
       <!-- PONTOS DE LUBRIFICAÇÃO REPOSICIONADOS COM PRECISÃO -->
 
       <!-- PONTO A: Barramento e Guias (Vermelho) -->
-      <a-sphere class="clickable" position="0.3 1.12 -3.0" radius="0.1" color="#
+      <a-sphere class="clickable" position="0.3 1.12 -3.0" radius="0.1" color="#E74C3C"
+        data-info="PONTO A: BARRAMENTO E GUIAS\n\n- Lubrificante: Oleo ISO VG 68\n- Frequencia: Diaria\n- Metodo: Camada fina com almotolia">
+        <a-text value="A" align="center" position="0 0 0.11" scale="0.6 0.6 0.6" color="#FFF"></a-text>
+      </a-sphere>
+
+      <!-- PONTO B: Esferas dos Carros (Amarelo) -->
+      <a-sphere class="clickable" position="0.0 1.35 -2.6" radius="0.1" color="#F1C40F"
+        data-info="PONTO B: ESFERAS DOS CARROS\n\n- Lubrificante: Oleo ISO VG 68\n- Frequencia: Diaria\n- Metodo: 2 a 3 bombadas manuais">
+        <a-text value="B" align="center" position="0 0 0.11" scale="0.6 0.6 0.6" color="#000"></a-text>
+      </a-sphere>
+
+      <!-- PONTO C: Cabeçote Fixo (Verde) -->
+      <a-sphere class="clickable" position="-0.9 1.95 -3.0" radius="0.1" color="#2ECC71"
+        data-info="PONTO C: CABECOTE FIXO\n\n- Lubrificante: Oleo ISO VG 32\n- Frequencia: Checar diario / Semestral\n- Qtd: 5,5 Litros (visor)">
+        <a-text value="C" align="center" position="0 0 0.11" scale="0.6 0.6 0.6" color="#FFF"></a-text>
+      </a-sphere>
+
+      <!-- PONTO D: Caixa Norton (Azul Claro) -->
+      <a-sphere class="clickable" position="-0.9 1.1 -2.4" radius="0.1" color="#3498DB"
+        data-info="PONTO D: CAIXA NORTON\n\n- Lubrificante: Oleo ISO VG 150\n- Frequencia: Troca semestral\n- Qtd: Aprox. 1,3 Litros">
+        <a-text value="D" align="center" position="0 0 0.11" scale="0.6 0.6 0.6" color="#FFF"></a-text>
+      </a-sphere>
+
+      <!-- PONTO E: Avental do Carro (Roxo - Centralizado na caixa do Avental) -->
+      <a-sphere class="clickable" position="0.0 0.9 -2.35" radius="0.1" color="#9B59B6"
+        data-info="PONTO E: AVENTAL DO CARRO\n\n- Lubrificante: Oleo ISO VG 150\n- Frequencia: Troca bimestral\n- Qtd: Aprox. 0,5 Litro">
+        <a-text value="E" align="center" position="0 0 0.11" scale="0.6 0.6 0.6" color="#FFF"></a-text>
+      </a-sphere>
+
+      <!-- PONTO F: Engrenagens da Lira (Laranja/Graxa - Visível na lateral esquerda) -->
+      <a-sphere class="clickable" position="-1.45 1.35 -2.6" radius="0.1" color="#E67E22"
+        data-info="PONTO F: ENGRENAGENS DA LIRA\n\n- Lubrificante: Graxa NLGI 2\n- Frequencia: Anual / Necessidade\n- Metodo: Aplicacao manual leve">
+        <a-text value="F" align="center" position="0 0 0.11" scale="0.6 0.6 0.6" color="#FFF"></a-text>
+      </a-sphere>
+
+      <!-- CÂMERA E MIRA CIANO COM EFEITO FUSE -->
+      <a-entity id="rig" position="0 1.6 0">
+        <a-camera look-controls="pointerLockEnabled: false">
+          <a-entity
+            cursor="fuse: true; fuseTimeout: 800"
+            raycaster="objects: .clickable"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.012; radiusOuter: 0.02"
+            material="color: #00FFCC; shader: flat"
+            animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+            animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 800; from: 1 1 1; to: 0.3 0.3 0.3"
+            animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 150; to: 1 1 1">
+          </a-entity>
+        </a-camera>
+      </a-entity>
+
+      <!-- ILUMINAÇÃO DE AMBIENTE -->
+      <a-sky color="#1A252F"></a-sky>
+      <a-ambient-light color="#FFFFFF" intensity="0.85"></a-ambient-light>
+      <a-directional-light position="-1 2 1" intensity="0.6"></a-directional-light>
+    </a-scene>
+
+    <!-- SCRIPT DE INTERAÇÃO -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const textoPainel = document.getElementById('texto-painel');
+        const pontos = document.querySelectorAll('.clickable');
+
+        pontos.forEach(ponto => {
+          ponto.addEventListener('mouseenter', () => {
+            const info = ponto.getAttribute('data-info');
+            textoPainel.setAttribute('value', info);
+            textoPainel.setAttribute('color', '#FFFFFF');
+          });
+
+          ponto.addEventListener('click', () => {
+            const info = ponto.getAttribute('data-info');
+            textoPainel.setAttribute('value', info);
+            textoPainel.setAttribute('color', '#00FFCC');
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
